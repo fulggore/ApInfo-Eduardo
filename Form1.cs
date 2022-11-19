@@ -10,11 +10,29 @@ using System.Windows.Forms;
 
 namespace ApInfo_Eduardo
 {
-    public partial class Form1 : Form
+    public partial class Menu : Form
     {
-        public Form1()
+        Cadastro cadastro = new Cadastro();
+        Consulta consulta = new Consulta();
+        public Menu()
         {
             InitializeComponent();
+        }
+
+        private void btnCadastro_Click(object sender, EventArgs e)
+        {
+            cadastro.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Fecha
+            this.Close();
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            consulta.ShowDialog();
         }
     }
 }

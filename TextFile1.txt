@@ -1,0 +1,67 @@
+﻿Cliente cli = new Cliente();
+        public Form4()
+        {
+            InitializeComponent();
+        }
+
+        private void Form4_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //Limpa Texto
+
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            textBox4.Clear();
+            textBox5.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Salvar
+
+            cli.setId(int.Parse(textBox1.Text));
+            cli.setNome(textBox2.Text);
+            cli.setIdade(int.Parse(textBox3.Text));
+            cli.setTelefone(textBox4.Text);
+            cli.setGen(comboBox1.Text);
+            cli.setPlano(comboBox2.Text);
+            cli.setValor(float.Parse(textBox5.Text));
+            cli.setPag(comboBox3.Text);
+
+            //MessageBox.Show("Dados salvos com sucesso!", "Salvar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+            //Cria conexão com MySql
+            MySqlConnection con = new MySqlConnection("datasource=localhost;username=root; password=; database=nextstage");
+            //Comando para inserir dados
+            MySqlCommand command = new MySqlCommand("INSERT INTO `alunos`(`ID`, `NOME`, `IDADE`, `TELEFONE`, `INSTAGRAM`, `TIPO_PLANO`, `VALOR`, `TIPO_PAGAMENTO`, `DATA_INICIO`,`GENERO`) " +
+                    "VALUES(" + cli.getId() + ", '" + cli.getNome() + ", '" + cli.getIdade() + ", '" + cli.getTelefone() + ", '" + cli.getInsta() + ", '" + cli.getPlano().ToString() + "', '" + cli.getValor() + "', '" + cli.getPag().ToString() + "', '" + cli.getDate().ToString("yyyy-MM-dd") + cli.getGen().ToString() + "') ", con);
+
+            try
+            {            
+                //Abre conxão com banco
+                con.Open();
+                //Executa o Command
+                command.ExecuteReader();
+                MessageBox.Show("Dados salvos");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //Fecha conxão
+                con.Close();
+            }
+        }
